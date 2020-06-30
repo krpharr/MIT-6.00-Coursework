@@ -96,7 +96,6 @@ def ghost():
 	player2 = "Player 2"
 	cur_player = player1
 	fragment = ""
-	index = 0
 	newgame = True
 	play = True
 	rules = "Rules of Ghost\n"

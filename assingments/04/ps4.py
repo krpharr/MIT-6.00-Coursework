@@ -1,7 +1,4 @@
 # Problem Set 4
-# Name: 
-# Collaborators: 
-# Time: 
 
 #
 # Problem 1
@@ -32,25 +29,24 @@ def testNestEggFixed():
     growthRate = 15
     years      = 5
     savingsRecord = nestEggFixed(salary, save, growthRate, years)
-    print savingsRecord
+    print(savingsRecord)
     # Output should have values close to:
     # [1000.0, 2150.0, 3472.5, 4993.375, 6742.3812499999995]
 
     # TODO: Add more test cases here.
     salary     = 30000
     save       = 10
-    growthRate = 1
-    years      = 28
+    growthRate = 9
+    years      = 15
     savingsRecord = nestEggFixed(salary, save, growthRate, years)
-    print savingsRecord
+    print(savingsRecord)
     
-    salary     = 30000
-    save       = 5
-    growthRate = 3
-    years      = 28
+    salary     = 55000
+    save       = 15
+    growthRate = 9
+    years      = 15
     savingsRecord = nestEggFixed(salary, save, growthRate, years)
-    print savingsRecord
-
+    print(savingsRecord)
 
 #
 # Problem 2
@@ -73,19 +69,26 @@ def nestEggVariable(salary, save, growthRates):
 			fund.append(fund[i-1] * (1 + 0.01 * growthRates[i]) + salary * save * 0.01)
 	return fund
 
-		
-		
-
 def testNestEggVariable():
     salary      = 10000
     save        = 10
     growthRates = [3, 4, 5, 0, 3]
     savingsRecord = nestEggVariable(salary, save, growthRates)
-    print savingsRecord
+    print(savingsRecord)
     # Output should have values close to:
     # [1000.0, 2040.0, 3142.0, 4142.0, 5266.2600000000002]
-
     # TODO: Add more test cases here.
+    salary      = 36000
+    save        = 15
+    growthRates = [1, 2, 2, 3, 4]
+    savingsRecord = nestEggVariable(salary, save, growthRates)
+    print(savingsRecord)
+
+    salary      = 100000
+    save        = 15
+    growthRates = [1, 2, 2, 3, 4]
+    savingsRecord = nestEggVariable(salary, save, growthRates)
+    print(savingsRecord)
 
 #
 # Problem 3
@@ -108,19 +111,28 @@ def postRetirement(savings, growthRates, expenses):
 			fund.append(fund[i-1]+(fund[i-1]*(growthRates[i]*0.01)-expenses))
 	return fund
 
-
-
 def testPostRetirement():
     savings     = 100000
     growthRates = [10, 5, 0, 5, 1]
     expenses    = 30000
     savingsRecord = postRetirement(savings, growthRates, expenses)
-    print savingsRecord
+    print(savingsRecord)
     # Output should have values close to:
     # [80000.000000000015, 54000.000000000015, 24000.000000000015,
     # -4799.9999999999854, -34847.999999999985]
 
     # TODO: Add more test cases here.
+    savings     = 78000
+    growthRates = [3, 5, 0, 5, 1]
+    expenses    = 20000
+    savingsRecord = postRetirement(savings, growthRates, expenses)
+    print(savingsRecord)
+
+    savings     = 162000
+    growthRates = [0, 9, 5, 12, 6]
+    expenses    = 20000
+    savingsRecord = postRetirement(savings, growthRates, expenses)
+    print(savingsRecord)
 
 #
 # Problem 4
@@ -140,14 +152,15 @@ def findMaxExpenses(salary, save, preRetireGrowthRates, postRetireGrowthRates,
 	  the investment fund at the end of retirement.
 	"""
 	fund = nestEggVariable(salary, save, preRetireGrowthRates)
-	print "nest egg", fund
+	# print("nest egg", fund)
 	savings = fund[len(fund)-1]
-	print "savings: ", savings
+	print("")
+	print("savings: ", savings)
 	low = 0
 	high = savings
 	guess = (low+high)/2.0
 	testexpenses = postRetirement(savings, postRetireGrowthRates, guess)
-	print "guess: ", guess, testexpenses
+	# print("guess: ", guess, testexpenses)
 	finalworth = testexpenses[len(testexpenses)-1]
 	while finalworth < 0 or finalworth > epsilon: 
 		if finalworth < 0:
@@ -156,13 +169,10 @@ def findMaxExpenses(salary, save, preRetireGrowthRates, postRetireGrowthRates,
 			low = guess 
 		guess = (low+high)/2.0
 		testexpenses = postRetirement(savings, postRetireGrowthRates, guess)
-		print "guess: ", guess, testexpenses
+		# print("guess: ", guess, testexpenses[len(testexpenses)-1])
 		finalworth = testexpenses[len(testexpenses)-1]
-	return finalworth
+	return guess
 			
-
-
-
 def testFindMaxExpenses():
     salary                = 10000
     save                  = 10
@@ -171,16 +181,45 @@ def testFindMaxExpenses():
     epsilon               = .01
     expenses = findMaxExpenses(salary, save, preRetireGrowthRates,
                                postRetireGrowthRates, epsilon)
-    print expenses
+    print(f'Max expenses per year for {len(postRetireGrowthRates)} years: ', expenses)
     # Output should have a value close to:
     # 1229.95548986
 
     # TODO: Add more test cases here.
+    salary                = 55000
+    save                  = 15
+    preRetireGrowthRates  = [3, 4, 5, 0, 3, 3, 4, 5, 0, 3, 3, 4, 5, 0, 3]
+    postRetireGrowthRates = [10, 5, 0, 5, 1,10, 5, 0, 5, 1,10, 5, 0, 5, 1,10, 5, 0, 5, 1,10, 5, 0, 5, 1]
+    epsilon               = .01
+    expenses = findMaxExpenses(salary, save, preRetireGrowthRates,
+                               postRetireGrowthRates, epsilon)
+    print(f'Max expenses for {len(postRetireGrowthRates)} years of savings', expenses)
+
     
-#############################################################
 ###########################################################
-    
-#testNestEggFixed()
-#testNestEggVariable()
-#testPostRetirement()
+#	                        Tests
+###########################################################
+
+print("")
+print("######################")
+print("Nest Egg Fixed")
+testNestEggFixed()
+print("######################")
+
+print("")
+print("######################")
+print("Nest Egg Variable")
+testNestEggVariable()
+print("######################")
+
+print("")
+print("######################")
+print("Post Retirement")
+testPostRetirement()
+print("######################")
+
+print("")
+print("######################")
+print("Find Max Expenses")
 testFindMaxExpenses()
+print("######################")

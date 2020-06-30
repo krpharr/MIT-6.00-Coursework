@@ -1,4 +1,5 @@
 from string import *
+from ps3b import subStringMatchExact
 
 target1 = 'atgacatgcacaagtatgcat'
 target2 = 'atgaatgcatggatgtaaatgcag'
@@ -7,16 +8,6 @@ key10 = 'a'
 key11 = 'atg'
 key12 = 'atgc'
 key13 = 'atgca'
-
-def subStringMatchExact(target,key):
-	startpoint = ()
-	i = 0
-	while i != -1:
-		i = target.find(key, i)
-		if i != -1:	
-			startpoint += (i,)
-			i += 1
-	return startpoint
 
 def constrainedMatchPair(firstMatch,secondMatch,length):
 	#n+m+1 = k
@@ -27,7 +18,6 @@ def constrainedMatchPair(firstMatch,secondMatch,length):
 				matchedpair += (firstMatch[i],)
 	return matchedpair
 		
-
 def subStringMatchOneSub(key,target):
   """search for all locations of key in target, with one substitution"""
   allAnswers = ()

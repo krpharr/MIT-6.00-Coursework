@@ -14,36 +14,36 @@ import string
 WORDLIST_FILENAME = "words.txt"
 
 def load_words():
-    """
-    Returns a list of valid words. Words are strings of lowercase letters.
-    
-    Depending on the size of the word list, this function may
-    take a while to finish.
-    """
-    print "Loading word list from file..."
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
-    # wordlist: list of strings
-    wordlist = []
-    for line in inFile:
-        wordlist.append(line.strip().lower())
-    print "  ", len(wordlist), "words loaded."
-    return wordlist
+  """
+  Returns a list of valid words. Words are strings of lowercase letters.
+  
+  Depending on the size of the word list, this function may
+  take a while to finish.
+  """
+  print("Loading word list from file...")
+  # inFile: file
+  inFile = open(WORDLIST_FILENAME, 'r')
+  # wordlist: list of strings
+  wordlist = []
+  for line in inFile:
+      wordlist.append(line.strip().lower())
+  print("  ", len(wordlist), "words loaded.")
+  return wordlist
 
 def get_frequency_dict(sequence):
-    """
-    Returns a dictionary where the keys are elements of the sequence
-    and the values are integer counts, for the number of times that
-    an element is repeated in the sequence.
+  """
+  Returns a dictionary where the keys are elements of the sequence
+  and the values are integer counts, for the number of times that
+  an element is repeated in the sequence.
 
-    sequence: string or list
-    return: dictionary
-    """
-    # freqs: dictionary (element_type -> int)
-    freq = {}
-    for x in sequence:
-        freq[x] = freq.get(x,0) + 1
-    return freq
+  sequence: string or list
+  return: dictionary
+  """
+  # freqs: dictionary (element_type -> int)
+  freq = {}
+  for x in sequence:
+      freq[x] = freq.get(x,0) + 1
+  return freq
 
 
 # (end of helper code)
@@ -55,11 +55,11 @@ def get_frequency_dict(sequence):
 
 def get_user_input():
 	"""call recursively till a valid entry is entered"""
-	c = raw_input("")
+	c = input("")
 	if c in string.ascii_letters:
-		c = string.lower(c)
+		c = c.lower()
 	else:
-		print "Invalid entry."
+		print("Invalid entry.")
 		return None
 	return c
 	
@@ -107,24 +107,23 @@ def ghost():
 	rules += "2) Creating a fragment (of any size) which cannot become a word by \n"
 	rules += "adding more letters (for example, 'QZ').\n"
 	
-	
-	print 
-	print "Welcome to Ghost:"
-	print
-	print rules
+	print()
+	print("Welcome to Ghost:")
+	print()
+	print(rules)
 		
 	while play:
 		if newgame:
 			cur_player = player1
 			newgame = False
 			fragment = ""
-			print "New Game!"
-			print
-			print "Player 1 goes first"
-			print "Pick a letter."
+			print("New Game!")
+			print()
+			print("Player 1 goes first")
+			print("Pick a letter.")
 		else:
-			print "Current word fragment: '", fragment,"'"
-			print cur_player, "'s turn.",
+			print("Current word fragment: '", fragment,"'")
+			print(cur_player, "'s turn.",)
 		
 		c = get_user_input()
 		
@@ -136,17 +135,17 @@ def ghost():
 				s = fragment, " is a bad word fragment."
 			if is_frament_word(fragment) == True:
 				s = fragment, " is a word longer than 3 letters."
-			print cur_player, " loses!", s
+			print(cur_player, " loses!", s)
 			k = "q"
 			while k != "n" and k != "." and k != 'r':
-				k = raw_input("Press 'n' for new game, 'r' for rules and '.' to quit.")
+				k = input("Press 'n' for new game, 'r' for rules and '.' to quit.")
 			if k == ".":
 				play = False
 			if k == "n":
 				newgame = True
 			if k == "r":
-				print
-				print rules
+				print()
+				print(rules)
 				newgame = True
 		else:
 			if cur_player == player1:
@@ -154,9 +153,7 @@ def ghost():
 			else:
 				cur_player = player1
 
-
-			
-		
+				
 wordlist = load_words()
 ghost()
 

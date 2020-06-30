@@ -158,10 +158,16 @@ def findMaxExpenses(salary, save, preRetireGrowthRates, postRetireGrowthRates,
 	print("savings: ", savings)
 	low = 0
 	high = savings
+	"""first guess is half of total savings""" 
 	guess = (low+high)/2.0
 	testexpenses = postRetirement(savings, postRetireGrowthRates, guess)
 	# print("guess: ", guess, testexpenses)
+	"""determine balance for last year calculated"""
 	finalworth = testexpenses[len(testexpenses)-1]
+	""" 
+		while final worth is less than zero or greater than epsilon continue guessing till 
+    finalworth > 0 and < epsilon
+	"""
 	while finalworth < 0 or finalworth > epsilon: 
 		if finalworth < 0:
 			high = guess

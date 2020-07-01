@@ -28,14 +28,14 @@ def load_words():
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-    print "Loading word list from file..."
+    print("Loading word list from file...")
     # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
+    inFile = open(WORDLIST_FILENAME, 'r')
     # wordlist: list of strings
     wordlist = []
     for line in inFile:
         wordlist.append(line.strip().lower())
-    print "  ", len(wordlist), "words loaded."
+    print("  ", len(wordlist), "words loaded.")
     return wordlist
 
 def get_frequency_dict(sequence):
@@ -91,7 +91,7 @@ def display_hand(hand):
 
     For example:
        display_hand({'a':1, 'x':2, 'l':3, 'e':1})
-    Should print out something like:
+    Should print(out something like:
        a x x l l l e
     The order of the letters is unimportant.
 
@@ -99,8 +99,8 @@ def display_hand(hand):
     """
     for letter in hand.keys():
         for j in range(hand[letter]):
-            print letter,              # print all on the same line
-    print                              # print an empty line
+            print(letter,)              # print(all on the same line
+    print()                             # print(an empty line
 
 #
 # Make sure you understand how this function works and what it does!
@@ -118,7 +118,7 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     hand={}
-    num_vowels = n / 3
+    num_vowels = n // 3
     
     for i in range(num_vowels):
         x = VOWELS[random.randrange(0,len(VOWELS))]
@@ -162,10 +162,6 @@ def update_hand(hand, word):
 			newhand[letter] = _hand.get(letter, 0)
 	return newhand
 		
-
-		
-		
-
 #
 # Problem #3: Test word validity
 #
@@ -191,8 +187,6 @@ def is_valid_word(word, hand, word_list):
 			valid = False
 	return valid
 	
-		
-
 #
 # Problem #4: Playing a hand
 #
@@ -226,29 +220,27 @@ def play_hand(hand, word_list):
 	"""
 	# TO DO ...
 	score = 0
-	print "Current Hand: ", 
+	print("Current Hand: ",) 
 	display_hand(hand)
-	guess = raw_input("Enter word, or a . to end game: ")
+	guess = input("Enter word, or a . to end game: ")
 	while guess != ".":
 		if is_valid_word(guess, hand, word_list):
 			s = get_word_score(guess, HAND_SIZE)
 			score += s
 			if len(guess) == len(hand):
-				print guess, "earned ", s, "points"
+				print(guess, "earned ", s, "points")
 				guess = "."
 			else:
 				hand = update_hand(hand, guess)
-				print guess, "earned ", s, "points", "Total points: ", score
-				print "Current Hand: ", 
+				print(guess, "earned ", s, "points", "Total points: ", score)
+				print("Current Hand: ",) 
 				display_hand(hand)
-				guess = raw_input("Enter word, or a . to end game: ")
+				guess = input("Enter word, or a . to end game: ")
 		else:
-			print guess, "is invalid.",
-			guess = raw_input("Enter word, or a . to end game: ")
-	print "Total points: ", score
-	print "Round over...."
-
-
+			print(guess, "is invalid.",)
+			guess = input("Enter word, or a . to end game: ")
+	print("Total points: ", score)
+	print("Round over....")
 
 #
 # Problem #5: Playing a game
@@ -270,25 +262,24 @@ def play_game(word_list):
     * If the user inputs anything else, ask them again.
     """
     # TO DO ...
-    print "play_game not implemented."         # delete this once you've completed Problem #4
+    print("play_game not implemented.")         # delete this once you've completed Problem #4
     play_hand(deal_hand(HAND_SIZE), word_list) # delete this once you've completed Problem #4
     
     ## uncomment the following block of code once you've completed Problem #4
     hand = deal_hand(HAND_SIZE) # random init
     while True:
-        cmd = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ')
+        cmd = input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ')
         if cmd == 'n':
             hand = deal_hand(HAND_SIZE)
             play_hand(hand.copy(), word_list)
-            print
+            print()
         elif cmd == 'r':
             play_hand(hand.copy(), word_list)
-            print
+            print()
         elif cmd == 'e':
             break
         else:
-            print "Invalid command."
-
+            print("Invalid command.")
 #
 # Build data structures used for entire session and play game
 #

@@ -50,6 +50,7 @@ def get_frequency_dict(sequence):
     # freqs: dictionary (element_type -> int)
     freq = {}
     for x in sequence:
+				# add 1 to x's value and if key does'nt exist use second param 0 of get(x, 0) to create 
         freq[x] = freq.get(x,0) + 1
     return freq
 
@@ -99,7 +100,7 @@ def display_hand(hand):
     """
     for letter in hand.keys():
         for j in range(hand[letter]):
-            print(letter,)              # print(all on the same line
+            print(letter + ' ', end='')              # print(all on the same line
     print()                             # print(an empty line
 
 #
@@ -176,9 +177,8 @@ def is_valid_word(word, hand, word_list):
 	word_list: list of lowercase strings
 	"""
 	valid = False
-	for wrd in word_list:
-		if wrd == word:
-			valid = True
+	if word in word_list:
+		valid = True
 	w = {}
 	for c in word:
 		w[c] = w.get(c, 0) + 1
@@ -262,8 +262,8 @@ def play_game(word_list):
     * If the user inputs anything else, ask them again.
     """
     # TO DO ...
-    print("play_game not implemented.")         # delete this once you've completed Problem #4
-    play_hand(deal_hand(HAND_SIZE), word_list) # delete this once you've completed Problem #4
+    # print("play_game not implemented.")         # delete this once you've completed Problem #4
+    # play_hand(deal_hand(HAND_SIZE), word_list) # delete this once you've completed Problem #4
     
     ## uncomment the following block of code once you've completed Problem #4
     hand = deal_hand(HAND_SIZE) # random init
